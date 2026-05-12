@@ -77,9 +77,9 @@ function EscrowDetail() {
             <div className="relative">
               <div className="absolute left-0 right-0 top-5 h-0.5 bg-border" />
               <div className="absolute left-0 top-5 h-0.5 bg-gradient-to-r from-primary to-primary-glow"
-                style={{ width: `${(escrow.milestones.filter((m) => m.status === "released" || m.status === "in_progress").length / escrow.milestones.length) * 100}%` }} />
+                style={{ width: `${(escrow.milestones.filter((m: { status: string }) => m.status === "released" || m.status === "in_progress").length / escrow.milestones.length) * 100}%` }} />
               <div className="relative grid grid-cols-4 gap-2">
-                {escrow.milestones.map((m) => {
+                {escrow.milestones.map((m: { id: string; name: string; amount: number; percent: number; status: string; date?: string }) => {
                   const released = m.status === "released";
                   const active = m.status === "in_progress";
                   return (
