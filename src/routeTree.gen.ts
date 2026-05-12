@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppRiskRouteImport } from './routes/app.risk'
+import { Route as AppNewDealRouteImport } from './routes/app.new-deal'
+import { Route as AppDocumentsRouteImport } from './routes/app.documents'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppAgentRouteImport } from './routes/app.agent'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AppSuppliersIndexRouteImport } from './routes/app.suppliers.index'
@@ -19,6 +25,11 @@ import { Route as AppEscrowsIndexRouteImport } from './routes/app.escrows.index'
 import { Route as AppSuppliersIdRouteImport } from './routes/app.suppliers.$id'
 import { Route as AppEscrowsIdRouteImport } from './routes/app.escrows.$id'
 
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -32,6 +43,31 @@ const IndexRoute = IndexRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRiskRoute = AppRiskRouteImport.update({
+  id: '/risk',
+  path: '/risk',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNewDealRoute = AppNewDealRouteImport.update({
+  id: '/new-deal',
+  path: '/new-deal',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDocumentsRoute = AppDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => AppRoute,
 } as any)
 const AppAgentRoute = AppAgentRouteImport.update({
@@ -68,8 +104,14 @@ const AppEscrowsIdRoute = AppEscrowsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/onboarding': typeof OnboardingRoute
   '/api/chat': typeof ApiChatRoute
   '/app/agent': typeof AppAgentRoute
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/documents': typeof AppDocumentsRoute
+  '/app/new-deal': typeof AppNewDealRoute
+  '/app/risk': typeof AppRiskRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
   '/app/escrows/$id': typeof AppEscrowsIdRoute
   '/app/suppliers/$id': typeof AppSuppliersIdRoute
@@ -78,8 +120,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/onboarding': typeof OnboardingRoute
   '/api/chat': typeof ApiChatRoute
   '/app/agent': typeof AppAgentRoute
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/documents': typeof AppDocumentsRoute
+  '/app/new-deal': typeof AppNewDealRoute
+  '/app/risk': typeof AppRiskRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app': typeof AppIndexRoute
   '/app/escrows/$id': typeof AppEscrowsIdRoute
   '/app/suppliers/$id': typeof AppSuppliersIdRoute
@@ -90,8 +138,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/onboarding': typeof OnboardingRoute
   '/api/chat': typeof ApiChatRoute
   '/app/agent': typeof AppAgentRoute
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/documents': typeof AppDocumentsRoute
+  '/app/new-deal': typeof AppNewDealRoute
+  '/app/risk': typeof AppRiskRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
   '/app/escrows/$id': typeof AppEscrowsIdRoute
   '/app/suppliers/$id': typeof AppSuppliersIdRoute
@@ -103,8 +157,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/onboarding'
     | '/api/chat'
     | '/app/agent'
+    | '/app/analytics'
+    | '/app/documents'
+    | '/app/new-deal'
+    | '/app/risk'
+    | '/app/settings'
     | '/app/'
     | '/app/escrows/$id'
     | '/app/suppliers/$id'
@@ -113,8 +173,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/onboarding'
     | '/api/chat'
     | '/app/agent'
+    | '/app/analytics'
+    | '/app/documents'
+    | '/app/new-deal'
+    | '/app/risk'
+    | '/app/settings'
     | '/app'
     | '/app/escrows/$id'
     | '/app/suppliers/$id'
@@ -124,8 +190,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/onboarding'
     | '/api/chat'
     | '/app/agent'
+    | '/app/analytics'
+    | '/app/documents'
+    | '/app/new-deal'
+    | '/app/risk'
+    | '/app/settings'
     | '/app/'
     | '/app/escrows/$id'
     | '/app/suppliers/$id'
@@ -136,11 +208,19 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  OnboardingRoute: typeof OnboardingRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app': {
       id: '/app'
       path: '/app'
@@ -160,6 +240,41 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/risk': {
+      id: '/app/risk'
+      path: '/risk'
+      fullPath: '/app/risk'
+      preLoaderRoute: typeof AppRiskRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/new-deal': {
+      id: '/app/new-deal'
+      path: '/new-deal'
+      fullPath: '/app/new-deal'
+      preLoaderRoute: typeof AppNewDealRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/documents': {
+      id: '/app/documents'
+      path: '/documents'
+      fullPath: '/app/documents'
+      preLoaderRoute: typeof AppDocumentsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/analytics': {
+      id: '/app/analytics'
+      path: '/analytics'
+      fullPath: '/app/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/agent': {
@@ -209,6 +324,11 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppAgentRoute: typeof AppAgentRoute
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppDocumentsRoute: typeof AppDocumentsRoute
+  AppNewDealRoute: typeof AppNewDealRoute
+  AppRiskRoute: typeof AppRiskRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppIndexRoute: typeof AppIndexRoute
   AppEscrowsIdRoute: typeof AppEscrowsIdRoute
   AppSuppliersIdRoute: typeof AppSuppliersIdRoute
@@ -218,6 +338,11 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppAgentRoute: AppAgentRoute,
+  AppAnalyticsRoute: AppAnalyticsRoute,
+  AppDocumentsRoute: AppDocumentsRoute,
+  AppNewDealRoute: AppNewDealRoute,
+  AppRiskRoute: AppRiskRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppIndexRoute: AppIndexRoute,
   AppEscrowsIdRoute: AppEscrowsIdRoute,
   AppSuppliersIdRoute: AppSuppliersIdRoute,
@@ -230,8 +355,19 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  OnboardingRoute: OnboardingRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
