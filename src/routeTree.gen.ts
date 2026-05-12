@@ -14,6 +14,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppAgentRouteImport } from './routes/app.agent'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AppSuppliersIndexRouteImport } from './routes/app.suppliers.index'
+import { Route as AppEscrowsIndexRouteImport } from './routes/app.escrows.index'
+import { Route as AppSuppliersIdRouteImport } from './routes/app.suppliers.$id'
+import { Route as AppEscrowsIdRouteImport } from './routes/app.escrows.$id'
 
 const AppRoute = AppRouteImport.update({
   id: '/app',
@@ -40,6 +44,26 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppSuppliersIndexRoute = AppSuppliersIndexRouteImport.update({
+  id: '/suppliers/',
+  path: '/suppliers/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEscrowsIndexRoute = AppEscrowsIndexRouteImport.update({
+  id: '/escrows/',
+  path: '/escrows/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSuppliersIdRoute = AppSuppliersIdRouteImport.update({
+  id: '/suppliers/$id',
+  path: '/suppliers/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEscrowsIdRoute = AppEscrowsIdRouteImport.update({
+  id: '/escrows/$id',
+  path: '/escrows/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,12 +71,20 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/app/agent': typeof AppAgentRoute
   '/app/': typeof AppIndexRoute
+  '/app/escrows/$id': typeof AppEscrowsIdRoute
+  '/app/suppliers/$id': typeof AppSuppliersIdRoute
+  '/app/escrows/': typeof AppEscrowsIndexRoute
+  '/app/suppliers/': typeof AppSuppliersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
   '/app/agent': typeof AppAgentRoute
   '/app': typeof AppIndexRoute
+  '/app/escrows/$id': typeof AppEscrowsIdRoute
+  '/app/suppliers/$id': typeof AppSuppliersIdRoute
+  '/app/escrows': typeof AppEscrowsIndexRoute
+  '/app/suppliers': typeof AppSuppliersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,13 +93,44 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/app/agent': typeof AppAgentRoute
   '/app/': typeof AppIndexRoute
+  '/app/escrows/$id': typeof AppEscrowsIdRoute
+  '/app/suppliers/$id': typeof AppSuppliersIdRoute
+  '/app/escrows/': typeof AppEscrowsIndexRoute
+  '/app/suppliers/': typeof AppSuppliersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/api/chat' | '/app/agent' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/api/chat'
+    | '/app/agent'
+    | '/app/'
+    | '/app/escrows/$id'
+    | '/app/suppliers/$id'
+    | '/app/escrows/'
+    | '/app/suppliers/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/chat' | '/app/agent' | '/app'
-  id: '__root__' | '/' | '/app' | '/api/chat' | '/app/agent' | '/app/'
+  to:
+    | '/'
+    | '/api/chat'
+    | '/app/agent'
+    | '/app'
+    | '/app/escrows/$id'
+    | '/app/suppliers/$id'
+    | '/app/escrows'
+    | '/app/suppliers'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/api/chat'
+    | '/app/agent'
+    | '/app/'
+    | '/app/escrows/$id'
+    | '/app/suppliers/$id'
+    | '/app/escrows/'
+    | '/app/suppliers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -113,17 +176,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/suppliers/': {
+      id: '/app/suppliers/'
+      path: '/suppliers'
+      fullPath: '/app/suppliers/'
+      preLoaderRoute: typeof AppSuppliersIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/escrows/': {
+      id: '/app/escrows/'
+      path: '/escrows'
+      fullPath: '/app/escrows/'
+      preLoaderRoute: typeof AppEscrowsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/suppliers/$id': {
+      id: '/app/suppliers/$id'
+      path: '/suppliers/$id'
+      fullPath: '/app/suppliers/$id'
+      preLoaderRoute: typeof AppSuppliersIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/escrows/$id': {
+      id: '/app/escrows/$id'
+      path: '/escrows/$id'
+      fullPath: '/app/escrows/$id'
+      preLoaderRoute: typeof AppEscrowsIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppAgentRoute: typeof AppAgentRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppEscrowsIdRoute: typeof AppEscrowsIdRoute
+  AppSuppliersIdRoute: typeof AppSuppliersIdRoute
+  AppEscrowsIndexRoute: typeof AppEscrowsIndexRoute
+  AppSuppliersIndexRoute: typeof AppSuppliersIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppAgentRoute: AppAgentRoute,
   AppIndexRoute: AppIndexRoute,
+  AppEscrowsIdRoute: AppEscrowsIdRoute,
+  AppSuppliersIdRoute: AppSuppliersIdRoute,
+  AppEscrowsIndexRoute: AppEscrowsIndexRoute,
+  AppSuppliersIndexRoute: AppSuppliersIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
