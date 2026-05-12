@@ -134,7 +134,7 @@ function Dashboard() {
                     borderRadius: 12,
                     fontSize: 12,
                   }}
-                  formatter={(v: number) => [`$${v}M`, "Liquidity"]}
+                  formatter={(v) => [`$${v}M`, "Liquidity"]}
                 />
                 <Bar dataKey="value" radius={[8, 8, 2, 2]}>
                   {escrowLiquiditySeries.map((d, i) => (
