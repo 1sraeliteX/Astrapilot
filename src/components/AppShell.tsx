@@ -55,7 +55,8 @@ export function AppShell() {
             return (
               <Link
                 key={item.to}
-                to={item.to}
+                to={item.to as string}
+                params={{}}
                 className={cn(
                   "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   active
