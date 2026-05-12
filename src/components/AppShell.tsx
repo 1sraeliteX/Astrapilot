@@ -1,4 +1,5 @@
-import { Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { Link as TLink, Outlet, useRouterState } from "@tanstack/react-router";
+const Link = TLink as unknown as React.ComponentType<{ to: string; params?: any; className?: string; activeProps?: any; children?: React.ReactNode }>;
 import {
   LayoutDashboard,
   Bot,
@@ -55,8 +56,7 @@ export function AppShell() {
             return (
               <Link
                 key={item.to}
-                to={item.to as string}
-                params={{}}
+                to={item.to}
                 className={cn(
                   "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   active
