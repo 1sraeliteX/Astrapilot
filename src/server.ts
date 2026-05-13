@@ -66,6 +66,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+// Cloudflare Workers handler (default)
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
